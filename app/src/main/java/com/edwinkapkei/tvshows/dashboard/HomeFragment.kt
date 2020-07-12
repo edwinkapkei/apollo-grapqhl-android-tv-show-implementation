@@ -5,7 +5,11 @@ import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import androidx.fragment.app.Fragment
+import androidx.recyclerview.widget.GridLayoutManager
+import com.edwinkapkei.tvshows.dashboard.adapters.GridItemDecoration
+import com.edwinkapkei.tvshows.dashboard.adapters.TVListAdapter
 import com.edwinkapkei.tvshows.databinding.FragmentHomeBinding
+import com.google.gson.JsonArray
 
 private const val FLAG_ARGUMENT = "param1"
 
@@ -18,6 +22,7 @@ class HomeFragment : Fragment() {
     private var flag: Int? = 0
     private var _binding: FragmentHomeBinding? = null
     private val binding get() = _binding!!
+    private var adapter: TVListAdapter = TVListAdapter()
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -41,6 +46,25 @@ class HomeFragment : Fragment() {
                         putInt(FLAG_ARGUMENT, param1)
                     }
                 }
+    }
+
+    override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
+        super.onViewCreated(view, savedInstanceState)
+
+        binding.showRecycler.layoutManager = GridLayoutManager(requireContext(), 2)
+        binding.showRecycler.addItemDecoration(GridItemDecoration(20, 2))
+        binding.showRecycler.adapter = adapter
+
+        val list = JsonArray()
+        list.add(1)
+        list.add(1)
+        list.add(1)
+        list.add(1)
+        list.add(1)
+        list.add(1)
+        list.add(1)
+        list.add(1)
+        adapter.updateList(list)
     }
 
     override fun onDestroy() {
