@@ -1,0 +1,97 @@
+<?xml version="1.0" encoding="utf-8"?>
+
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:layout_gravity="center"
+    android:gravity="center"
+    android:orientation="vertical"
+    android:padding="@dimen/fab_margin"
+    tools:context=".LoginActivity">
+
+    <ImageView
+        android:layout_width="100dp"
+        android:layout_height="100dp"
+        android:layout_marginBottom="@dimen/spacing_normal"
+        android:tint="@color/colorPrimary"
+        android:contentDescription="@string/generic_icon"
+        android:src="@drawable/television_classic" />
+
+    <TextView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginBottom="@dimen/spacing_normal"
+        android:fontFamily="@font/bold"
+        android:text="@string/app_name"
+        android:textColor="@color/colorPrimary"
+        android:textSize="@dimen/font_large" />
+
+    <TextView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginBottom="@dimen/spacing_small"
+        android:fontFamily="@font/regular"
+        android:text="@string/let_s_get_you_logged_in" />
+
+    <com.google.android.material.textfield.TextInputLayout
+        android:id="@+id/username_input_layout"
+        style="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox.Dense"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginBottom="@dimen/spacing_normal"
+        android:hint="@string/username"
+        app:boxCornerRadiusBottomEnd="@dimen/spacing_normal"
+        app:boxCornerRadiusBottomStart="@dimen/spacing_normal"
+        app:boxCornerRadiusTopEnd="@dimen/spacing_normal"
+        app:boxCornerRadiusTopStart="@dimen/spacing_normal"
+        app:errorIconDrawable="@null"
+        app:startIconDrawable="@drawable/ic_baseline_person_24">
+
+        <com.google.android.material.textfield.TextInputEditText
+            android:id="@+id/username"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:autofillHints="@string/username"
+            android:fontFamily="@font/regular"
+            android:inputType="textEmailAddress" />
+
+    </com.google.android.material.textfield.TextInputLayout>
+
+    <com.google.android.material.textfield.TextInputLayout
+        android:id="@+id/password_input_layout"
+        style="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox.Dense"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginBottom="@dimen/spacing_normal"
+        android:hint="@string/password"
+        app:boxCornerRadiusBottomEnd="@dimen/spacing_normal"
+        app:boxCornerRadiusBottomStart="@dimen/spacing_normal"
+        app:boxCornerRadiusTopEnd="@dimen/spacing_normal"
+        app:boxCornerRadiusTopStart="@dimen/spacing_normal"
+        app:errorIconDrawable="@null"
+        app:passwordToggleEnabled="true"
+        app:startIconDrawable="@drawable/ic_baseline_lock_24">
+
+        <com.google.android.material.textfield.TextInputEditText
+            android:id="@+id/password"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:autofillHints="@string/password"
+            android:fontFamily="@font/regular"
+            android:inputType="textPassword" />
+
+    </com.google.android.material.textfield.TextInputLayout>
+
+    <Button
+        android:id="@+id/login"
+        android:layout_width="200dp"
+        android:layout_height="wrap_content"
+        android:layout_gravity="center"
+        android:layout_marginBottom="@dimen/spacing_large"
+        android:fontFamily="@font/bold"
+        android:text="@string/login"
+        android:textAllCaps="true" />
+
+</LinearLayout>
