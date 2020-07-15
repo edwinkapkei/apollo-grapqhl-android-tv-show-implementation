@@ -5,12 +5,13 @@ import android.view.ViewGroup
 import androidx.recyclerview.widget.RecyclerView
 import coil.api.load
 import com.edwinkapkei.tvshows.R
+import com.edwinkapkei.tvshows.SearchQuery
 import com.edwinkapkei.tvshows.ShowListQuery
 import com.edwinkapkei.tvshows.databinding.TvItemBinding
 import com.edwinkapkei.tvshows.utilities.Utilities
 import com.google.gson.JsonObject
 
-class TVListAdapter(var shows: List<ShowListQuery.Show>) : RecyclerView.Adapter<TVListAdapter.ViewHolder>() {
+class SearchListAdapter(private var searchResults: List<SearchQuery.Search>) : RecyclerView.Adapter<SearchListAdapter.ViewHolder>() {
 
     var endOfListReached: (() -> Unit)? = null
     var onItemClicked: ((JsonObject) -> Unit)? = null
@@ -18,7 +19,7 @@ class TVListAdapter(var shows: List<ShowListQuery.Show>) : RecyclerView.Adapter<
     class ViewHolder(val binding: TvItemBinding) : RecyclerView.ViewHolder(binding.root)
 
     override fun getItemCount(): Int {
-        return shows.size
+        return searchResults.size
     }
 
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): ViewHolder {
@@ -27,7 +28,7 @@ class TVListAdapter(var shows: List<ShowListQuery.Show>) : RecyclerView.Adapter<
     }
 
     override fun onBindViewHolder(holder: ViewHolder, position: Int) {
-        val show = shows[position]
+        val show = searchResults[position]
         val year = Utilities().stringDateToYear(show.premiered ?: "")
         val name = show.name ?: ""
         holder.binding.title.text = name + " (${year})"
@@ -43,8 +44,8 @@ class TVListAdapter(var shows: List<ShowListQuery.Show>) : RecyclerView.Adapter<
 
     }
 
-    fun updateList(list: List<ShowListQuery.Show>) {
-        shows = list
+    fun updateList(list: List<SearchQuery.Search>) {
+        searchResults = list
         notifyDataSetChanged()
     }
 }

@@ -20,8 +20,7 @@
             android:layout_height="match_parent"
             android:layout_weight="1"
             android:contentDescription="@string/generic_icon"
-            android:scaleType="centerCrop"
-            android:src="@drawable/wonder_woman" />
+            android:scaleType="centerCrop" />
 
         <LinearLayout
             android:layout_width="0dp"
@@ -38,32 +37,22 @@
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:fontFamily="@font/bold"
-                android:text="Wonder Woman: 1984(2020-)"
                 android:textSize="@dimen/font_normal" />
 
             <TextView
-                android:id="@+id/year"
+                android:id="@+id/genre"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:fontFamily="@font/bold"
-                android:text="3 Seasons"
                 android:textSize="@dimen/font_small" />
-
             <TextView
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:ellipsize="end"
+                android:id="@+id/summary"
                 android:fontFamily="@font/regular"
                 android:maxLines="3"
-                android:text="Plot: Under the Dome is the story of a small town that is suddenly and inexplicably sealed off from the rest of the world by an enormous transparent dome. The town's inhabitants must deal with surviving the post-apocalyptic conditions while s"
                 android:textSize="@dimen/font_normal" />
-
-            <TextView
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:fontFamily="@font/bold"
-                android:text="Drama,Science-Fiction,Thriller"
-                android:textSize="@dimen/font_small" />
 
             <LinearLayout
                 android:layout_width="match_parent"
@@ -82,8 +71,8 @@
                 <TextView
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
+                    android:id="@+id/rating"
                     android:fontFamily="@font/regular"
-                    android:text="6.5"
                     android:textSize="@dimen/font_small" />
 
                 <View
@@ -93,6 +82,7 @@
 
                 <ImageView
                     android:layout_width="wrap_content"
+                    android:contentDescription="@string/generic_icon"
                     android:layout_height="wrap_content"
                     android:src="@drawable/heart_outline" />
             </LinearLayout>

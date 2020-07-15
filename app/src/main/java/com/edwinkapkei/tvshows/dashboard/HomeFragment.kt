@@ -1,16 +1,24 @@
 package com.edwinkapkei.tvshows.dashboard
 
+import android.content.Intent
 import android.os.Bundle
+import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import android.view.inputmethod.EditorInfo
+import android.widget.TextView.OnEditorActionListener
 import androidx.fragment.app.Fragment
-import androidx.recyclerview.widget.DividerItemDecoration
-import androidx.recyclerview.widget.GridLayoutManager
+import androidx.lifecycle.lifecycleScope
 import androidx.recyclerview.widget.LinearLayoutManager
+import com.apollographql.apollo.coroutines.toDeferred
+import com.apollographql.apollo.exception.ApolloException
+import com.edwinkapkei.tvshows.SearchActivity
+import com.edwinkapkei.tvshows.ShowListQuery
+import com.edwinkapkei.tvshows.apolloClient
 import com.edwinkapkei.tvshows.dashboard.adapters.TVListAdapter
 import com.edwinkapkei.tvshows.databinding.FragmentHomeBinding
-import com.google.gson.JsonArray
+
 
 private const val FLAG_ARGUMENT = "param1"
 
@@ -23,8 +31,7 @@ class HomeFragment : Fragment() {
     private var flag: Int? = 0
     private var _binding: FragmentHomeBinding? = null
     private val binding get() = _binding!!
-    private var adapter: TVListAdapter = TVListAdapter()
-
+    private var list: ShowListQuery.Show? = null
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         arguments?.let {
@@ -53,18 +60,35 @@ class HomeFragment : Fragment() {
         super.onViewCreated(view, savedInstanceState)
 
         binding.showRecycler.layoutManager = LinearLayoutManager(requireContext())
-        binding.showRecycler.adapter = adapter
 
-        val list = JsonArray()
-        list.add(1)
-        list.add(1)
-        list.add(1)
-        list.add(1)
-        list.add(1)
-        list.add(1)
-        list.add(1)
-        list.add(1)
-        adapter.updateList(list)
+        binding.search.setOnEditorActionListener(OnEditorActionListener { v, actionId, event ->
+            if (actionId == EditorInfo.IME_ACTION_SEARCH) {
+                val intent = Intent(requireContext(), SearchActivity::class.java)
+                intent.putExtra("term", v.text.toString())
+                startActivity(intent)
+
+                binding.search.setText("")
+                return@OnEditorActionListener true
+            }
+            false
+        })
+
+        lifecycleScope.launchWhenResumed {
+            binding.progressbar.visibility = View.VISIBLE
+            val response = try {
+                apolloClient.query(ShowListQuery()).toDeferred().await()
+            } catch (e: ApolloException) {
+                Log.e("ApolloException", "Failed", e)
+                null
+            }
+
+            val shows = response?.data?.shows?.filterNotNull()
+            binding.progressbar.visibility = View.GONE
+            if (shows != null) {
+                val adapter = TVListAdapter(shows)
+                binding.showRecycler.adapter = adapter
+            }
+        }
     }
 
     override fun onDestroy() {

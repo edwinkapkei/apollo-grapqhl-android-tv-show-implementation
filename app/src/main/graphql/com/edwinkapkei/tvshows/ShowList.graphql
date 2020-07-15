@@ -1,0 +1,11 @@
+query ShowList {
+  shows {
+    id
+    name
+    premiered
+    image(size: MEDIUM)
+    genres
+    rating
+    summary
+  }
+}

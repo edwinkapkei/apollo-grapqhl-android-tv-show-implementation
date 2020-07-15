@@ -1,0 +1,11 @@
+query Search($name: String!) {
+  search(name: $name) {
+    id
+    name
+    premiered
+    image(size: MEDIUM)
+    genres
+    rating
+    summary
+  }
+}
