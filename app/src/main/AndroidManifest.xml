@@ -12,12 +12,17 @@
         android:supportsRtl="true"
         android:theme="@style/AppTheme"
         android:usesCleartextTraffic="true">
+        <activity
+            android:name=".dashboard.ShowDetails"
+            android:screenOrientation="portrait"
+            android:theme="@style/AppTheme.NoActionBar" />
+
         <meta-data
             android:name="android.app.default_searchable"
             android:value=".SearchActivity" />
 
         <activity
-            android:name=".SearchActivity"
+            android:name=".dashboard.SearchActivity"
             android:screenOrientation="portrait"
             android:theme="@style/AppTheme.NoActionBar">
             <intent-filter>

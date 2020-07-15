@@ -1,5 +1,5 @@
-query ShowList {
-  shows {
+query ShowList($page: Int!) {
+  shows(page: $page) {
     id
     name
     premiered

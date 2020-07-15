@@ -1,0 +1,24 @@
+query ShowDetails($showId: Int!) {
+  show(showId: $showId) {
+    id
+    name
+    premiered
+    image(size: MEDIUM)
+    genres
+    rating
+    summary
+    seasons {
+      id
+      number
+      episodes
+    }
+    crew {
+      type
+      person {
+        name
+        id
+        image(size: MEDIUM)
+      }
+    }
+  }
+}

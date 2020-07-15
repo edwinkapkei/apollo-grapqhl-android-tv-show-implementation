@@ -1,7 +1,5 @@
-package com.edwinkapkei.tvshows
+package com.edwinkapkei.tvshows.dashboard
 
-import android.app.SearchManager
-import android.content.Intent
 import android.os.Bundle
 import android.util.Log
 import android.view.MenuItem
@@ -11,6 +9,8 @@ import androidx.lifecycle.lifecycleScope
 import androidx.recyclerview.widget.LinearLayoutManager
 import com.apollographql.apollo.coroutines.toDeferred
 import com.apollographql.apollo.exception.ApolloException
+import com.edwinkapkei.tvshows.SearchQuery
+import com.edwinkapkei.tvshows.apolloClient
 import com.edwinkapkei.tvshows.dashboard.adapters.SearchListAdapter
 import com.edwinkapkei.tvshows.databinding.ActivitySearchBinding
 import kotlinx.coroutines.launch

@@ -1,28 +1,24 @@
 <?xml version="1.0" encoding="utf-8"?>
-<androidx.swiperefreshlayout.widget.SwipeRefreshLayout xmlns:android="http://schemas.android.com/apk/res/android"
+
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
-    android:id="@+id/swipe_refresh_layout"
     android:layout_height="match_parent"
     tools:context=".dashboard.HomeFragment">
 
-        <RelativeLayout
-            android:layout_width="match_parent"
-            android:layout_height="match_parent">
+    <androidx.recyclerview.widget.RecyclerView
+        android:id="@+id/show_recycler"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content" />
 
-            <androidx.recyclerview.widget.RecyclerView
-                android:id="@+id/show_recycler"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content" />
+    <androidx.core.widget.ContentLoadingProgressBar
+        android:id="@+id/progressbar"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_centerInParent="true"
+        android:layout_gravity="center_horizontal"
+        android:theme="?android:attr/progressBarStyle"
+        android:visibility="visible" />
+</RelativeLayout>
 
-            <androidx.core.widget.ContentLoadingProgressBar
-                android:id="@+id/progressbar"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_centerInParent="true"
-                android:layout_gravity="center_horizontal"
-                android:theme="?android:attr/progressBarStyle"
-                android:visibility="visible" />
-        </RelativeLayout>
 
-</androidx.swiperefreshlayout.widget.SwipeRefreshLayout>

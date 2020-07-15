@@ -10,10 +10,10 @@ import com.edwinkapkei.tvshows.databinding.TvItemBinding
 import com.edwinkapkei.tvshows.utilities.Utilities
 import com.google.gson.JsonObject
 
-class TVListAdapter(private var shows: List<ShowListQuery.Show>) : RecyclerView.Adapter<TVListAdapter.ViewHolder>() {
+class CrewAdapter(private var shows: List<ShowListQuery.Show>) : RecyclerView.Adapter<CrewAdapter.ViewHolder>() {
 
     var endOfListReached: (() -> Unit)? = null
-    var onItemClicked: ((ShowListQuery.Show) -> Unit)? = null
+    var onItemClicked: ((JsonObject) -> Unit)? = null
 
     class ViewHolder(val binding: TvItemBinding) : RecyclerView.ViewHolder(binding.root)
 
@@ -44,10 +44,6 @@ class TVListAdapter(private var shows: List<ShowListQuery.Show>) : RecyclerView.
 
         if (position == shows.size - 20) {
             endOfListReached?.invoke()
-        }
-
-        holder.binding.root.setOnClickListener {
-            onItemClicked?.invoke(show);
         }
     }
 }

@@ -1,5 +1,6 @@
 package com.edwinkapkei.tvshows.dashboard
 
+import android.content.Intent
 import android.os.Bundle
 import android.util.Log
 import android.view.LayoutInflater
@@ -14,6 +15,7 @@ import com.edwinkapkei.tvshows.ShowListQuery
 import com.edwinkapkei.tvshows.apolloClient
 import com.edwinkapkei.tvshows.dashboard.adapters.TVListAdapter
 import com.edwinkapkei.tvshows.databinding.FragmentHomeBinding
+import kotlinx.coroutines.channels.Channel
 
 
 private const val FLAG_ARGUMENT = "param1"
@@ -25,6 +27,7 @@ private const val FLAG_ARGUMENT = "param1"
  */
 class HomeFragment : Fragment() {
     private var flag: Int? = 0
+    private var page: Int = 0
     private var _binding: FragmentHomeBinding? = null
     private val binding get() = _binding!!
     private var list: ShowListQuery.Show? = null
@@ -55,23 +58,51 @@ class HomeFragment : Fragment() {
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
 
+        val shows = mutableListOf<ShowListQuery.Show>()
+        val adapter = TVListAdapter(shows)
         binding.showRecycler.layoutManager = LinearLayoutManager(requireContext())
+        binding.showRecycler.adapter = adapter
+
+        val channel = Channel<Unit>(Channel.CONFLATED)
+
+        channel.offer(Unit)
+        adapter.endOfListReached = {
+            channel.offer(Unit)
+        }
 
         lifecycleScope.launchWhenResumed {
-            binding.progressbar.visibility = View.VISIBLE
-            val response = try {
-                apolloClient.query(ShowListQuery()).toDeferred().await()
-            } catch (e: ApolloException) {
-                Log.e("ApolloException", "Failed", e)
-                null
+            if (page == 1)
+                binding.progressbar.visibility = View.VISIBLE
+            for (item in channel) {
+                val response = try {
+                    apolloClient.query(ShowListQuery(page = page)).toDeferred().await()
+                } catch (e: ApolloException) {
+                    Log.e("ApolloException", "Failed", e)
+                    null
+                }
+
+                val newShows = response?.data?.shows?.filterNotNull()
+                binding.progressbar.visibility = View.GONE
+                if (newShows != null) {
+                    shows.addAll(newShows)
+                    adapter.notifyDataSetChanged()
+                }
+
+                page++
             }
 
-            val shows = response?.data?.shows?.filterNotNull()
-            binding.progressbar.visibility = View.GONE
-            if (shows != null) {
-                val adapter = TVListAdapter(shows)
-                binding.showRecycler.adapter = adapter
-            }
+            channel.close();
+        }
+
+        adapter.onItemClicked = { show ->
+            val intent = Intent(requireContext(), ShowDetails::class.java)
+            intent.putExtra("id", show.id)
+            intent.putExtra("name", show.name)
+            intent.putExtra("premiered", show.premiered)
+            intent.putExtra("summary", show.summary)
+            intent.putExtra("rating", show.rating)
+            intent.putExtra("genre", show.genres?.joinToString(separator = ", "))
+            startActivity(intent)
         }
     }
 

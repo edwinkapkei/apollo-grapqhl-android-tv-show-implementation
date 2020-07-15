@@ -6,12 +6,12 @@ import android.content.Intent
 import android.os.Bundle
 import android.view.Menu
 import android.view.MenuItem
-import android.widget.Toast
 import androidx.appcompat.app.AppCompatActivity
 import androidx.appcompat.widget.SearchView
 import androidx.fragment.app.Fragment
 import com.edwinkapkei.tvshows.dashboard.HomeFragment
 import com.edwinkapkei.tvshows.dashboard.ScheduleFragment
+import com.edwinkapkei.tvshows.dashboard.SearchActivity
 import com.edwinkapkei.tvshows.dashboard.utils.BottomBarAdapter
 import com.edwinkapkei.tvshows.databinding.ActivityMainBinding
 import com.google.android.material.bottomnavigation.BottomNavigationView
