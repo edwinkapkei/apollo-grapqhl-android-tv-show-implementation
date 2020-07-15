@@ -51,8 +51,8 @@ class HomeFragment : Fragment() {
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
 
-        binding.showRecycler.layoutManager = GridLayoutManager(requireContext(), 2)
-        binding.showRecycler.addItemDecoration(GridItemDecoration(20, 2))
+        binding.showRecycler.layoutManager = GridLayoutManager(requireContext(), 1)
+        binding.showRecycler.addItemDecoration(GridItemDecoration(20, 1))
         binding.showRecycler.adapter = adapter
 
         val list = JsonArray()

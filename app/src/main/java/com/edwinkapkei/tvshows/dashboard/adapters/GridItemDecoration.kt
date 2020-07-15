@@ -45,6 +45,7 @@ class GridItemDecoration(gridSpacingPx: Int, private var gridSize: Int) : Recycl
             outRect.right = sizeGridSpacingPx / 2
         }
 
+        outRect.right = 24
         outRect.bottom = 24
     }
 }

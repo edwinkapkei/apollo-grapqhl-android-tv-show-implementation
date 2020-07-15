@@ -25,6 +25,11 @@ class MainActivity : AppCompatActivity() {
         binding = ActivityMainBinding.inflate(layoutInflater)
         setContentView(binding.root)
 
+        setSupportActionBar(binding.toolbar)
+        if (supportActionBar != null) {
+            supportActionBar!!.title = getString(R.string.app_name)
+        }
+
         binding.viewpager.offscreenPageLimit = 2
         binding.viewpager.setPagingEnabled(false)
 
