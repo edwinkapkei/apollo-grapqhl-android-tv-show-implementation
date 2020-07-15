@@ -5,23 +5,24 @@
     android:layout_height="wrap_content"
     app:cardCornerRadius="@dimen/spacing_tiny">
 
-    <RelativeLayout
+    <LinearLayout
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:orientation="vertical">
+        android:orientation="horizontal">
 
         <ImageView
             android:id="@+id/poster"
-            android:layout_width="match_parent"
-            android:layout_height="180dp"
+            android:layout_width="0dp"
+            android:layout_height="match_parent"
+            android:layout_weight="1"
             android:contentDescription="@string/generic_icon"
-            android:scaleType="center"
+            android:scaleType="centerCrop"
             android:src="@drawable/wonder_woman" />
 
         <LinearLayout
-            android:layout_width="match_parent"
+            android:layout_width="0dp"
+            android:layout_weight="2"
             android:layout_height="wrap_content"
-            android:layout_below="@id/poster"
             android:background="@color/white"
             android:orientation="vertical"
             android:paddingStart="@dimen/spacing_tiny"
@@ -40,8 +41,24 @@
                 android:id="@+id/year"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:fontFamily="@font/regular"
+                android:fontFamily="@font/bold"
                 android:text="3 Seasons"
+                android:textSize="@dimen/font_small" />
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:ellipsize="end"
+                android:fontFamily="@font/regular"
+                android:maxLines="3"
+                android:text="Plot: Under the Dome is the story of a small town that is suddenly and inexplicably sealed off from the rest of the world by an enormous transparent dome. The town's inhabitants must deal with surviving the post-apocalyptic conditions while s"
+                android:textSize="@dimen/font_normal" />
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:fontFamily="@font/bold"
+                android:text="Drama,Science-Fiction,Thriller"
                 android:textSize="@dimen/font_small" />
 
             <LinearLayout
@@ -76,5 +93,5 @@
                     android:src="@drawable/heart_outline" />
             </LinearLayout>
         </LinearLayout>
-    </RelativeLayout>
+    </LinearLayout>
 </androidx.cardview.widget.CardView>
