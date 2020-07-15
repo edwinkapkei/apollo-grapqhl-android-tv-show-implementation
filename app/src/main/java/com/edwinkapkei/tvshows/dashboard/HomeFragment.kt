@@ -1,19 +1,15 @@
 package com.edwinkapkei.tvshows.dashboard
 
-import android.content.Intent
 import android.os.Bundle
 import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
-import android.view.inputmethod.EditorInfo
-import android.widget.TextView.OnEditorActionListener
 import androidx.fragment.app.Fragment
 import androidx.lifecycle.lifecycleScope
 import androidx.recyclerview.widget.LinearLayoutManager
 import com.apollographql.apollo.coroutines.toDeferred
 import com.apollographql.apollo.exception.ApolloException
-import com.edwinkapkei.tvshows.SearchActivity
 import com.edwinkapkei.tvshows.ShowListQuery
 import com.edwinkapkei.tvshows.apolloClient
 import com.edwinkapkei.tvshows.dashboard.adapters.TVListAdapter
@@ -60,18 +56,6 @@ class HomeFragment : Fragment() {
         super.onViewCreated(view, savedInstanceState)
 
         binding.showRecycler.layoutManager = LinearLayoutManager(requireContext())
-
-        binding.search.setOnEditorActionListener(OnEditorActionListener { v, actionId, event ->
-            if (actionId == EditorInfo.IME_ACTION_SEARCH) {
-                val intent = Intent(requireContext(), SearchActivity::class.java)
-                intent.putExtra("term", v.text.toString())
-                startActivity(intent)
-
-                binding.search.setText("")
-                return@OnEditorActionListener true
-            }
-            false
-        })
 
         lifecycleScope.launchWhenResumed {
             binding.progressbar.visibility = View.VISIBLE

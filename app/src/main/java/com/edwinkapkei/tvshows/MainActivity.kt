@@ -1,7 +1,14 @@
 package com.edwinkapkei.tvshows
 
+import android.app.SearchManager
+import android.content.Context
+import android.content.Intent
 import android.os.Bundle
+import android.view.Menu
+import android.view.MenuItem
+import android.widget.Toast
 import androidx.appcompat.app.AppCompatActivity
+import androidx.appcompat.widget.SearchView
 import androidx.fragment.app.Fragment
 import com.edwinkapkei.tvshows.dashboard.HomeFragment
 import com.edwinkapkei.tvshows.dashboard.ScheduleFragment
@@ -59,5 +66,29 @@ class MainActivity : AppCompatActivity() {
             }
             false
         })
+    }
+
+    override fun onCreateOptionsMenu(menu: Menu?): Boolean {
+        menuInflater.inflate(R.menu.search, menu)
+
+        val searchItem: MenuItem? = menu?.findItem(R.id.action_search)
+        val searchManager = getSystemService(Context.SEARCH_SERVICE) as SearchManager
+        val searchView: SearchView? = searchItem?.actionView as SearchView
+
+        searchView?.setSearchableInfo(searchManager.getSearchableInfo(componentName))
+
+        searchView?.setOnQueryTextListener(object : SearchView.OnQueryTextListener {
+            override fun onQueryTextSubmit(query: String): Boolean {
+                val intent = Intent(this@MainActivity, SearchActivity::class.java)
+                intent.putExtra("term", query)
+                startActivity(intent)
+                return true
+            }
+
+            override fun onQueryTextChange(newText: String): Boolean {
+                return false
+            }
+        })
+        return super.onCreateOptionsMenu(menu)
     }
 }

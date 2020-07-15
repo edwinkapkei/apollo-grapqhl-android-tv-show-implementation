@@ -1,13 +1,11 @@
 package com.edwinkapkei.tvshows
 
-import android.content.Context
+import android.app.SearchManager
+import android.content.Intent
 import android.os.Bundle
 import android.util.Log
 import android.view.MenuItem
 import android.view.View
-import android.view.inputmethod.EditorInfo
-import android.view.inputmethod.InputMethodManager
-import android.widget.TextView
 import androidx.appcompat.app.AppCompatActivity
 import androidx.lifecycle.lifecycleScope
 import androidx.recyclerview.widget.LinearLayoutManager
@@ -37,20 +35,14 @@ class SearchActivity : AppCompatActivity() {
         val term: String = intent.getStringExtra("term") ?: ""
 
         if (term.isNotEmpty()) {
-            binding.search.setText(term)
+            if (supportActionBar != null) {
+                supportActionBar!!.title = term
+                supportActionBar!!.setDisplayHomeAsUpEnabled(true)
+            }
             searchShow(term)
         }
 
         binding.showRecycler.layoutManager = LinearLayoutManager(this)
-
-        binding.search.setOnEditorActionListener(TextView.OnEditorActionListener { v, actionId, event ->
-            if (actionId == EditorInfo.IME_ACTION_SEARCH) {
-                binding.search.hideKeyboard()
-                searchShow(v.text.toString())
-                return@OnEditorActionListener true
-            }
-            false
-        })
     }
 
     private fun searchShow(term: String) {
@@ -75,17 +67,12 @@ class SearchActivity : AppCompatActivity() {
         }
     }
 
-    fun View.hideKeyboard() {
-        val imm = context.getSystemService(Context.INPUT_METHOD_SERVICE) as InputMethodManager
-        imm.hideSoftInputFromWindow(windowToken, 0)
-    }
-
     override fun onOptionsItemSelected(item: MenuItem): Boolean {
-
         if (item.itemId == android.R.id.home) {
             onBackPressed()
         }
 
         return super.onOptionsItemSelected(item)
     }
+
 }
