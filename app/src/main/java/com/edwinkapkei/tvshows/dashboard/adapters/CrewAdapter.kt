@@ -5,45 +5,32 @@ import android.view.ViewGroup
 import androidx.recyclerview.widget.RecyclerView
 import coil.api.load
 import com.edwinkapkei.tvshows.R
-import com.edwinkapkei.tvshows.ShowListQuery
-import com.edwinkapkei.tvshows.databinding.TvItemBinding
-import com.edwinkapkei.tvshows.utilities.Utilities
+import com.edwinkapkei.tvshows.ShowDetailsQuery
+import com.edwinkapkei.tvshows.databinding.CrewItemBinding
 import com.google.gson.JsonObject
 
-class CrewAdapter(private var shows: List<ShowListQuery.Show>) : RecyclerView.Adapter<CrewAdapter.ViewHolder>() {
+class CrewAdapter(private var crew: List<ShowDetailsQuery.Crew>) : RecyclerView.Adapter<CrewAdapter.ViewHolder>() {
 
-    var endOfListReached: (() -> Unit)? = null
-    var onItemClicked: ((JsonObject) -> Unit)? = null
-
-    class ViewHolder(val binding: TvItemBinding) : RecyclerView.ViewHolder(binding.root)
+    class ViewHolder(val binding: CrewItemBinding) : RecyclerView.ViewHolder(binding.root)
 
     override fun getItemCount(): Int {
-        return shows.size
+        return crew.size
     }
 
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): ViewHolder {
-        val binding = TvItemBinding.inflate(LayoutInflater.from(parent.context), parent, false)
+        val binding = CrewItemBinding.inflate(LayoutInflater.from(parent.context), parent, false)
         return ViewHolder(binding)
     }
 
     override fun onBindViewHolder(holder: ViewHolder, position: Int) {
-        val show = shows[position]
+        val member = crew[position]
 
-        val year = Utilities().stringDateToYear(show.premiered ?: "")
-        val name = show.name ?: ""
-        holder.binding.title.text = name + " (${year})"
+        holder.binding.name.text = member.person?.name
 
-        holder.binding.poster.load(show.image) {
-            placeholder(R.drawable.television_classic_blue)
+        holder.binding.poster.load(member.person?.image) {
+            placeholder(R.drawable.ic_baseline_person_24)
         }
-        val summary = show.summary ?: ""
-        holder.binding.summary.text = android.text.Html.fromHtml(summary).toString()
-        holder.binding.rating.text = show.rating ?: "-"
 
-        holder.binding.genre.text = show.genres?.joinToString(separator = ", ")
-
-        if (position == shows.size - 20) {
-            endOfListReached?.invoke()
-        }
+        holder.binding.role.text = member.type
     }
 }

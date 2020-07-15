@@ -27,14 +27,14 @@
         android:paddingEnd="@dimen/spacing_tiny">
 
         <TextView
-            android:id="@+id/title"
+            android:id="@+id/name"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:fontFamily="@font/bold"
             android:textSize="@dimen/font_normal" />
 
         <TextView
-            android:id="@+id/genre"
+            android:id="@+id/role"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:fontFamily="@font/bold"

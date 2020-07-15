@@ -3,7 +3,7 @@ query ShowDetails($showId: Int!) {
     id
     name
     premiered
-    image(size: MEDIUM)
+    image(size: ORIGINAL)
     genres
     rating
     summary
