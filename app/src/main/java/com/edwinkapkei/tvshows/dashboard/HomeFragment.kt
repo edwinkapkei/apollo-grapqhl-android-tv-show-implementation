@@ -5,8 +5,9 @@ import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import androidx.fragment.app.Fragment
+import androidx.recyclerview.widget.DividerItemDecoration
 import androidx.recyclerview.widget.GridLayoutManager
-import com.edwinkapkei.tvshows.dashboard.adapters.GridItemDecoration
+import androidx.recyclerview.widget.LinearLayoutManager
 import com.edwinkapkei.tvshows.dashboard.adapters.TVListAdapter
 import com.edwinkapkei.tvshows.databinding.FragmentHomeBinding
 import com.google.gson.JsonArray
@@ -51,8 +52,7 @@ class HomeFragment : Fragment() {
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
 
-        binding.showRecycler.layoutManager = GridLayoutManager(requireContext(), 1)
-        binding.showRecycler.addItemDecoration(GridItemDecoration(20, 1))
+        binding.showRecycler.layoutManager = LinearLayoutManager(requireContext())
         binding.showRecycler.adapter = adapter
 
         val list = JsonArray()
