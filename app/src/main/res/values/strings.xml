@@ -11,4 +11,6 @@
     <string name="title_favorites">Favorites</string>
     <string name="title_home">Shows</string>
     <string name="search">Search</string>
+    <string name="favorite">Favorite</string>
+    <string name="comment">Comment</string>
 </resources>

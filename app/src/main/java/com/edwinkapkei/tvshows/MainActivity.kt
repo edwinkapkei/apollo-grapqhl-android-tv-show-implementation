@@ -9,6 +9,7 @@ import android.view.MenuItem
 import androidx.appcompat.app.AppCompatActivity
 import androidx.appcompat.widget.SearchView
 import androidx.fragment.app.Fragment
+import com.edwinkapkei.tvshows.dashboard.FavoritesFragment
 import com.edwinkapkei.tvshows.dashboard.HomeFragment
 import com.edwinkapkei.tvshows.dashboard.ScheduleFragment
 import com.edwinkapkei.tvshows.dashboard.SearchActivity
@@ -24,7 +25,7 @@ class MainActivity : AppCompatActivity() {
 
     private val scheduleFragment: Fragment = ScheduleFragment()
     private val homeFragment: Fragment = HomeFragment.newInstance(1)
-    private val favoritesFragment: Fragment = HomeFragment.newInstance(2)
+    private val favoritesFragment: Fragment = FavoritesFragment()
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
