@@ -65,9 +65,14 @@ class FavoritesFragment : Fragment(), SwipeRefreshLayout.OnRefreshListener {
             binding.progressbar.visibility = View.GONE
             binding.swipeRefreshLayout.isRefreshing = false
             if (newShows != null) {
-                shows.clear()
-                shows.addAll(newShows)
-                adapter.notifyDataSetChanged()
+                if (newShows.isNotEmpty()) {
+                    binding.emptyContainer.emptyItem.visibility = View.GONE
+                    shows.clear()
+                    shows.addAll(newShows)
+                    adapter.notifyDataSetChanged()
+                } else {
+                    binding.emptyContainer.emptyItem.visibility = View.VISIBLE
+                }
             }
         }
     }

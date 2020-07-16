@@ -1,0 +1,30 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:id="@+id/empty_item"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:gravity="center"
+    android:orientation="vertical"
+    android:visibility="gone">
+
+    <ImageView
+        android:id="@+id/empty_icon"
+        android:layout_width="100dp"
+        android:layout_height="100dp"
+        android:alpha="0.3"
+        android:contentDescription="@string/generic_icon"
+        app:srcCompat="@drawable/television_classic" />
+
+    <TextView
+        android:id="@+id/empty_description"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="@dimen/spacing_normal"
+        android:layout_marginTop="@dimen/spacing_small"
+        android:layout_marginEnd="@dimen/spacing_normal"
+        android:fontFamily="@font/bold"
+        android:gravity="center"
+        android:text="@string/no_records_to_display"
+        android:textSize="@dimen/font_normal" />
+</LinearLayout>

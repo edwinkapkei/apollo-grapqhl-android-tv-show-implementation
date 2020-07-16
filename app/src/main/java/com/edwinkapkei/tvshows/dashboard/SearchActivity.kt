@@ -65,8 +65,14 @@ class SearchActivity : AppCompatActivity() {
             binding.showRecycler.visibility = View.VISIBLE
             val searchResult = response?.data?.search?.filterNotNull()
             if (searchResult != null) {
-                shows.addAll(searchResult)
-                adapter.notifyDataSetChanged()
+                if (searchResult.isNotEmpty()) {
+                    binding.emptyContainer.emptyItem.visibility = View.GONE
+                    shows.addAll(searchResult)
+                    adapter.notifyDataSetChanged()
+                } else {
+                    binding.emptyContainer.emptyItem.visibility = View.VISIBLE
+                    binding.emptyContainer.emptyDescription.text = "No results available for your query"
+                }
             }
         }
 

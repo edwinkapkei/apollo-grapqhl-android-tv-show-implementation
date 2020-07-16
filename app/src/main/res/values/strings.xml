@@ -16,4 +16,5 @@
     <string name="sign_up">Sign Up</string>
     <string name="trouble">We had trouble completing your request</string>
     <string name="logout">Logout</string>
+    <string name="no_records_to_display">You have not added any shows</string>
 </resources>

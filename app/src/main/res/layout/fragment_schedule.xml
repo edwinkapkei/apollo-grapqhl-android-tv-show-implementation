@@ -24,6 +24,10 @@
             android:layout_gravity="center_horizontal"
             android:theme="?android:attr/progressBarStyle"
             android:visibility="visible" />
+
+        <include
+            android:id="@+id/empty_container"
+            layout="@layout/empty_list" />
     </RelativeLayout>
 </androidx.swiperefreshlayout.widget.SwipeRefreshLayout>
 
