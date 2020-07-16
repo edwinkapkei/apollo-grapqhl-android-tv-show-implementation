@@ -1,0 +1,11 @@
+query GetFavoriteShows($userId: String!){
+  favorites(userId: $userId){
+    id
+    name
+    premiered
+    image(size: MEDIUM)
+    genres
+    rating
+    summary
+  }
+}

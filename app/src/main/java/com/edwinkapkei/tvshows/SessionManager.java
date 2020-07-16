@@ -28,7 +28,8 @@ public class SessionManager {
 
     public void setUser(String id, String name, String email) {
         editor.putString(KEY_USER, id);
-        editor.putString(KEY_NAME, name);
+        if (!name.isEmpty())
+            editor.putString(KEY_NAME, name);
         editor.putString(KEY_EMAIL, email);
         editor.putBoolean(KEY_LOGGED_IN, true);
         editor.apply();

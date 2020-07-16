@@ -1,6 +1,8 @@
 package com.edwinkapkei.tvshows
 
+import android.content.Intent
 import android.os.Bundle
+import android.os.Handler
 import android.text.TextUtils
 import android.util.Patterns
 import android.view.View
@@ -36,16 +38,18 @@ class SignupActivity : AppCompatActivity() {
                     if (response != null) {
                         Snackbar.make(binding.rootLayout, response.data?.signup?.message.toString(), Snackbar.LENGTH_LONG).show()
                         if (response.data?.signup?.success!!) {
+                            val sessionManager = SessionManager(this@SignupActivity)
+                            sessionManager.setUser(response.data!!.signup.id, binding.name.text.toString(), binding.email.text.toString());
 
-//                            val intent = Intent(this@SignupActivity,MainActivity::class.java);
-//                            intent.addFlags(Intent.FLAG_ACTIVITY_NEW_TASK)
-//                            intent.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP)
-//                            startActivity(intent)
-//                            finish()
-                        } else {
+                            Handler().postDelayed({
+                                val intent = Intent(this@SignupActivity, MainActivity::class.java);
+                                intent.addFlags(Intent.FLAG_ACTIVITY_NEW_TASK)
+                                intent.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP)
+                                startActivity(intent)
+                                finish()
+                            }, 2000)
 
                         }
-
                     } else {
                         Snackbar.make(binding.rootLayout, getString(R.string.trouble), Snackbar.LENGTH_LONG).show()
                     }
@@ -70,11 +74,11 @@ class SignupActivity : AppCompatActivity() {
         }
 
         if (!isValidEmail(email)) {
-            binding.nameInputLayout.isErrorEnabled = true
-            binding.nameInputLayout.error = "Please enter valid email"
+            binding.emailInputLayout.isErrorEnabled = true
+            binding.emailInputLayout.error = "Please enter valid email"
             value = false
         } else {
-            binding.nameInputLayout.isErrorEnabled = false
+            binding.emailInputLayout.isErrorEnabled = false
         }
 
         if (password.isEmpty()) {

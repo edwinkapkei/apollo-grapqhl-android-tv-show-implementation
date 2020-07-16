@@ -37,7 +37,7 @@
         android:text="@string/let_s_get_you_logged_in" />
 
     <com.google.android.material.textfield.TextInputLayout
-        android:id="@+id/username_input_layout"
+        android:id="@+id/email_input_layout"
         style="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox.Dense"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
@@ -51,7 +51,7 @@
         app:startIconDrawable="@drawable/ic_baseline_person_24">
 
         <com.google.android.material.textfield.TextInputEditText
-            android:id="@+id/username"
+            android:id="@+id/email"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:autofillHints="@string/username"
@@ -85,16 +85,28 @@
 
     </com.google.android.material.textfield.TextInputLayout>
 
-    <Button
-        android:id="@+id/login"
-        android:layout_width="200dp"
+    <FrameLayout
+        android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:layout_gravity="center"
-        android:layout_marginBottom="@dimen/spacing_large"
-        android:fontFamily="@font/bold"
-        android:text="@string/login"
-        android:textAllCaps="true" />
+        android:layout_marginBottom="@dimen/spacing_large">
 
+        <Button
+            android:id="@+id/login"
+            android:layout_width="200dp"
+            android:layout_height="wrap_content"
+            android:layout_gravity="center"
+            android:fontFamily="@font/bold"
+            android:text="@string/login"
+            android:textAllCaps="true" />
+
+        <androidx.core.widget.ContentLoadingProgressBar
+            android:id="@+id/progressbar"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_gravity="center_horizontal"
+            android:theme="?android:attr/progressBarStyle"
+            android:visibility="invisible" />
+    </FrameLayout>
 
     <Button
         android:id="@+id/signup"

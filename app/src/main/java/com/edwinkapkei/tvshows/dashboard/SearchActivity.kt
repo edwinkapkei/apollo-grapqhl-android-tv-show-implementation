@@ -78,6 +78,7 @@ class SearchActivity : AppCompatActivity() {
             intent.putExtra("summary", show.summary)
             intent.putExtra("rating", show.rating)
             intent.putExtra("genre", show.genres?.joinToString(separator = ", "))
+            intent.putExtra("favorite", false)
             startActivity(intent)
         }
     }

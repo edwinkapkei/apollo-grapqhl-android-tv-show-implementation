@@ -1,0 +1,11 @@
+query GetSchedule($userId: String!){
+  schedule(userId: $userId){
+    id
+    name
+    premiered
+    image(size: MEDIUM)
+    genres
+    rating
+    summary
+  }
+}
