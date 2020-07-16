@@ -12,18 +12,20 @@ import androidx.recyclerview.widget.LinearLayoutManager
 import coil.api.load
 import com.apollographql.apollo.coroutines.toDeferred
 import com.apollographql.apollo.exception.ApolloException
-import com.edwinkapkei.tvshows.R
-import com.edwinkapkei.tvshows.ShowDetailsQuery
-import com.edwinkapkei.tvshows.apolloClient
+import com.edwinkapkei.tvshows.*
 import com.edwinkapkei.tvshows.dashboard.adapters.CrewAdapter
 import com.edwinkapkei.tvshows.dashboard.adapters.GridItemDecoration
 import com.edwinkapkei.tvshows.dashboard.adapters.SeasonAdapter
 import com.edwinkapkei.tvshows.databinding.ActivityShowDetailsBinding
 import com.edwinkapkei.tvshows.utilities.Utilities
+import com.google.android.material.snackbar.Snackbar
 
 class ShowDetails : AppCompatActivity() {
 
     private lateinit var binding: ActivityShowDetailsBinding
+    private var showId: Int = 0
+    private var addToFavorite: Boolean = false
+    private var addToSchedule: Boolean = false
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -37,6 +39,9 @@ class ShowDetails : AppCompatActivity() {
             supportActionBar!!.title = "Show Details"
             supportActionBar!!.setDisplayHomeAsUpEnabled(true)
         }
+
+        showId = intent.getIntExtra("id", 1)
+
 
         binding.crew.layoutManager = GridLayoutManager(this@ShowDetails, 2)
         binding.crew.addItemDecoration(GridItemDecoration(20, 2))
@@ -54,7 +59,7 @@ class ShowDetails : AppCompatActivity() {
 
         lifecycleScope.launchWhenCreated {
             val response = try {
-                apolloClient.query(ShowDetailsQuery(showId = intent.getIntExtra("id", 1))).toDeferred().await()
+                apolloClient.query(ShowDetailsQuery(showId = showId)).toDeferred().await()
             } catch (e: ApolloException) {
                 Log.e("ApolloException", "Failed", e)
                 null
@@ -76,6 +81,51 @@ class ShowDetails : AppCompatActivity() {
         }
     }
 
+    private fun addToFavorites() {
+        lifecycleScope.launchWhenCreated {
+            val mutation = AddFavoriteMutation(userId = SessionManager.getUserId(this@ShowDetails), showId = showId.toString(), addToFavorites = true);
+            val response = try {
+                apolloClient.mutate(mutation).toDeferred().await()
+            } catch (e: ApolloException) {
+                null
+            }
+
+            if (response != null) {
+                if (response.data?.addFavorite?.success!!) {
+                    addToFavorite = response.data?.addFavorite?.flag!!
+                }
+                Snackbar.make(binding.rootLayout, response.data?.addFavorite?.message.toString(), Snackbar.LENGTH_SHORT).show()
+
+            } else {
+                addToFavorite = false
+                Snackbar.make(binding.rootLayout, getString(R.string.trouble), Snackbar.LENGTH_LONG).show()
+            }
+            invalidateOptionsMenu()
+        }
+    }
+
+    private fun addToSchedule() {
+        lifecycleScope.launchWhenCreated {
+            val mutation = AddScheduleMutation(userId = SessionManager.getUserId(this@ShowDetails), showId = showId.toString(), addToSchedule = true);
+            val response = try {
+                apolloClient.mutate(mutation).toDeferred().await()
+            } catch (e: ApolloException) {
+                null
+            }
+
+            if (response != null) {
+                if (response.data?.addSchedule?.success!!) {
+                    addToSchedule = response.data?.addSchedule?.flag!!
+                }
+                Snackbar.make(binding.rootLayout, response.data?.addSchedule?.message.toString(), Snackbar.LENGTH_SHORT).show()
+            } else {
+                addToSchedule = false
+                Snackbar.make(binding.rootLayout, getString(R.string.trouble), Snackbar.LENGTH_LONG).show()
+            }
+            invalidateOptionsMenu()
+        }
+    }
+
     override fun onCreateOptionsMenu(menu: Menu?): Boolean {
         val inflater: MenuInflater = menuInflater
         inflater.inflate(R.menu.menu_details, menu)
@@ -83,14 +133,35 @@ class ShowDetails : AppCompatActivity() {
     }
 
     override fun onPrepareOptionsMenu(menu: Menu?): Boolean {
-        //menu?.getItem(1)?.setIcon(R.drawable.television_classic)
+
+        if (addToFavorite) {
+            menu?.getItem(0)?.setIcon(R.drawable.heart)
+        } else {
+            menu?.getItem(0)?.setIcon(R.drawable.heart_outline_white)
+        }
+
+        if (addToSchedule) {
+            menu?.getItem(1)?.setIcon(R.drawable.calendar_check)
+        } else {
+            menu?.getItem(1)?.setIcon(R.drawable.calendar_plus)
+        }
+
         return super.onPrepareOptionsMenu(menu)
     }
 
     override fun onOptionsItemSelected(item: MenuItem): Boolean {
-        if (item.itemId == android.R.id.home) {
-            onBackPressed()
+        when (item.itemId) {
+            android.R.id.home -> {
+                onBackPressed()
+            }
+            R.id.action_favorite -> {
+                addToFavorites()
+            }
+            R.id.action_schedule -> {
+                addToSchedule()
+            }
         }
+
         return super.onOptionsItemSelected(item)
     }
 }

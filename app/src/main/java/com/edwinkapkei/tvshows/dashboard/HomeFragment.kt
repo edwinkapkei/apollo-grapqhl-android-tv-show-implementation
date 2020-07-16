@@ -77,7 +77,6 @@ class HomeFragment : Fragment() {
                 val response = try {
                     apolloClient.query(ShowListQuery(page = page)).toDeferred().await()
                 } catch (e: ApolloException) {
-                    Log.e("ApolloException", "Failed", e)
                     null
                 }
 
@@ -102,7 +101,6 @@ class HomeFragment : Fragment() {
             intent.putExtra("summary", show.summary)
             intent.putExtra("rating", show.rating)
             intent.putExtra("genre", show.genres?.joinToString(separator = ", "))
-            intent.putExtra("favorite", false)
             startActivity(intent)
         }
     }

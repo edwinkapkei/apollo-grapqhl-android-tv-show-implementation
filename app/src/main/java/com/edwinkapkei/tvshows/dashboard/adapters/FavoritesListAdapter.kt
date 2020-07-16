@@ -35,6 +35,7 @@ class FavoritesListAdapter(private var shows: List<GetFavoriteShowsQuery.Favorit
         holder.binding.title.text = name + " (${year})"
 
         holder.binding.poster.load(show.image) {
+            crossfade(true)
             placeholder(R.drawable.television_classic_blue)
         }
         val summary = show.summary ?: ""

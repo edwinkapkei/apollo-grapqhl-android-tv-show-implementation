@@ -32,6 +32,7 @@ class SearchListAdapter(private var searchResults: List<SearchQuery.Search>) : R
         holder.binding.title.text = name + " (${year})"
 
         holder.binding.poster.load(show.image) {
+            crossfade(true)
             placeholder(R.drawable.television_classic_blue)
         }
         val summary = show.summary ?: ""

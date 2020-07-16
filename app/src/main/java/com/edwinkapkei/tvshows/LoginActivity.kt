@@ -2,7 +2,6 @@ package com.edwinkapkei.tvshows
 
 import android.content.Intent
 import android.os.Bundle
-import android.os.Handler
 import android.text.TextUtils
 import android.util.Patterns
 import android.view.View
@@ -47,18 +46,16 @@ class LoginActivity : AppCompatActivity() {
                     binding.login.visibility = View.VISIBLE
                     binding.progressbar.visibility = View.GONE
                     if (response != null) {
-                        Snackbar.make(binding.rootLayout, response.data?.login?.message.toString(), Snackbar.LENGTH_SHORT).show()
                         if (response.data?.login?.success!!) {
                             val sessionManager = SessionManager(this@LoginActivity)
                             sessionManager.setUser(response.data!!.login.id, "", binding.email.text.toString());
-                            Handler().postDelayed({
-                                val intent = Intent(this@LoginActivity, MainActivity::class.java);
-                                intent.addFlags(Intent.FLAG_ACTIVITY_NEW_TASK)
-                                intent.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP)
-                                startActivity(intent)
-                                finish()
-                            }, 2000)
-
+                            val intent = Intent(this@LoginActivity, MainActivity::class.java);
+                            intent.addFlags(Intent.FLAG_ACTIVITY_NEW_TASK)
+                            intent.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP)
+                            startActivity(intent)
+                            finish()
+                        } else {
+                            Snackbar.make(binding.rootLayout, response.data?.login?.message.toString(), Snackbar.LENGTH_SHORT).show()
                         }
                     } else {
                         Snackbar.make(binding.rootLayout, getString(R.string.trouble), Snackbar.LENGTH_LONG).show()

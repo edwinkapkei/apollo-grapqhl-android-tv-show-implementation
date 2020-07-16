@@ -1,0 +1,7 @@
+mutation AddFavorite($userId: String!, $showId: String!,$addToFavorites: Boolean!) {
+  addFavorite(userId: $userId, showId: $showId, addToFavorites: $addToFavorites) {
+    success
+    message
+    flag
+  }
+}

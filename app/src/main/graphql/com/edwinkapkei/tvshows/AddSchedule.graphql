@@ -1,0 +1,7 @@
+mutation AddSchedule($userId: String!, $showId: String!,$addToSchedule:Boolean!) {
+  addSchedule(userId: $userId, showId: $showId, addToSchedule: $addToSchedule ) {
+    success
+    message
+    flag
+  }
+}
