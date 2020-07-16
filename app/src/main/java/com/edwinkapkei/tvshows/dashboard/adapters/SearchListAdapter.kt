@@ -6,15 +6,13 @@ import androidx.recyclerview.widget.RecyclerView
 import coil.api.load
 import com.edwinkapkei.tvshows.R
 import com.edwinkapkei.tvshows.SearchQuery
-import com.edwinkapkei.tvshows.ShowListQuery
 import com.edwinkapkei.tvshows.databinding.TvItemBinding
 import com.edwinkapkei.tvshows.utilities.Utilities
-import com.google.gson.JsonObject
 
 class SearchListAdapter(private var searchResults: List<SearchQuery.Search>) : RecyclerView.Adapter<SearchListAdapter.ViewHolder>() {
 
     var endOfListReached: (() -> Unit)? = null
-    var onItemClicked: ((JsonObject) -> Unit)? = null
+    var onItemClicked: ((SearchQuery.Search) -> Unit)? = null
 
     class ViewHolder(val binding: TvItemBinding) : RecyclerView.ViewHolder(binding.root)
 
@@ -42,6 +40,9 @@ class SearchListAdapter(private var searchResults: List<SearchQuery.Search>) : R
 
         holder.binding.genre.text = show.genres?.joinToString(separator = ", ")
 
+        holder.binding.root.setOnClickListener {
+            onItemClicked?.invoke(show)
+        }
     }
 
     fun updateList(list: List<SearchQuery.Search>) {

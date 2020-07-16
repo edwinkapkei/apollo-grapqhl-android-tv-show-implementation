@@ -7,7 +7,6 @@ import coil.api.load
 import com.edwinkapkei.tvshows.R
 import com.edwinkapkei.tvshows.ShowDetailsQuery
 import com.edwinkapkei.tvshows.databinding.CrewItemBinding
-import com.google.gson.JsonObject
 
 class CrewAdapter(private var crew: List<ShowDetailsQuery.Crew>) : RecyclerView.Adapter<CrewAdapter.ViewHolder>() {
 
@@ -27,9 +26,15 @@ class CrewAdapter(private var crew: List<ShowDetailsQuery.Crew>) : RecyclerView.
 
         holder.binding.name.text = member.person?.name
 
-        holder.binding.poster.load(member.person?.image) {
-            placeholder(R.drawable.ic_baseline_person_24)
+        if (member.person?.image != null) {
+            holder.binding.poster.load(member.person?.image) {
+                placeholder(R.drawable.ic_baseline_person_24)
+                error(R.drawable.ic_baseline_person_24)
+            }
+        } else {
+            holder.binding.poster.setImageResource(R.drawable.ic_baseline_person_24)
         }
+
 
         holder.binding.role.text = member.type
     }

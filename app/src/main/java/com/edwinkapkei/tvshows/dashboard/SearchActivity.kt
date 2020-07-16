@@ -1,5 +1,6 @@
 package com.edwinkapkei.tvshows.dashboard
 
+import android.content.Intent
 import android.os.Bundle
 import android.util.Log
 import android.view.MenuItem
@@ -46,6 +47,9 @@ class SearchActivity : AppCompatActivity() {
     }
 
     private fun searchShow(term: String) {
+        val shows = mutableListOf<SearchQuery.Search>()
+        val adapter = SearchListAdapter(shows)
+        binding.showRecycler.adapter = adapter
         lifecycleScope.launch {
             binding.progressbar.visibility = View.VISIBLE
             binding.showRecycler.visibility = View.GONE
@@ -61,9 +65,20 @@ class SearchActivity : AppCompatActivity() {
             binding.showRecycler.visibility = View.VISIBLE
             val searchResult = response?.data?.search?.filterNotNull()
             if (searchResult != null) {
-                val adapter = SearchListAdapter(searchResult)
-                binding.showRecycler.adapter = adapter
+                shows.addAll(searchResult)
+                adapter.notifyDataSetChanged()
             }
+        }
+
+        adapter.onItemClicked = { show ->
+            val intent = Intent(this, ShowDetails::class.java)
+            intent.putExtra("id", show.id)
+            intent.putExtra("name", show.name)
+            intent.putExtra("premiered", show.premiered)
+            intent.putExtra("summary", show.summary)
+            intent.putExtra("rating", show.rating)
+            intent.putExtra("genre", show.genres?.joinToString(separator = ", "))
+            startActivity(intent)
         }
     }
 

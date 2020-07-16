@@ -112,6 +112,21 @@
                     android:layout_height="wrap_content"
                     android:layout_marginTop="@dimen/spacing_small"
                     android:fontFamily="@font/bold"
+                    android:text="Comments"
+                    android:textSize="@dimen/font_small" />
+
+                <androidx.recyclerview.widget.RecyclerView
+                    android:id="@+id/comments"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_marginTop="@dimen/spacing_small"
+                    android:nestedScrollingEnabled="false" />
+
+                <TextView
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_marginTop="@dimen/spacing_small"
+                    android:fontFamily="@font/bold"
                     android:text="Seasons"
                     android:textSize="@dimen/font_small" />
 

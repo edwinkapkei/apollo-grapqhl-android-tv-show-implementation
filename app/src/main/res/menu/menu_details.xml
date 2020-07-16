@@ -14,9 +14,9 @@
         android:title="@string/title_schedule"
         app:showAsAction="ifRoom" />
 
-<!--    <item-->
-<!--        android:id="@+id/action_comment"-->
-<!--        android:icon="@drawable/ic_baseline_comment_24"-->
-<!--        android:title="@string/comment"-->
-<!--        app:showAsAction="never" />-->
+    <item
+        android:id="@+id/action_comment"
+        android:icon="@drawable/ic_baseline_comment_24"
+        android:title="@string/comment"
+        app:showAsAction="never" />
 </menu>

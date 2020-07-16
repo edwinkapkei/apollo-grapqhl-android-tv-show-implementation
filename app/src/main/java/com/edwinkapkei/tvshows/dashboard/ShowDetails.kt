@@ -7,6 +7,7 @@ import android.view.MenuInflater
 import android.view.MenuItem
 import androidx.appcompat.app.AppCompatActivity
 import androidx.lifecycle.lifecycleScope
+import androidx.recyclerview.widget.GridLayoutManager
 import androidx.recyclerview.widget.LinearLayoutManager
 import coil.api.load
 import com.apollographql.apollo.coroutines.toDeferred
@@ -15,6 +16,7 @@ import com.edwinkapkei.tvshows.R
 import com.edwinkapkei.tvshows.ShowDetailsQuery
 import com.edwinkapkei.tvshows.apolloClient
 import com.edwinkapkei.tvshows.dashboard.adapters.CrewAdapter
+import com.edwinkapkei.tvshows.dashboard.adapters.GridItemDecoration
 import com.edwinkapkei.tvshows.dashboard.adapters.SeasonAdapter
 import com.edwinkapkei.tvshows.databinding.ActivityShowDetailsBinding
 import com.edwinkapkei.tvshows.utilities.Utilities
@@ -36,7 +38,9 @@ class ShowDetails : AppCompatActivity() {
             supportActionBar!!.setDisplayHomeAsUpEnabled(true)
         }
 
-        binding.crew.layoutManager = LinearLayoutManager(this@ShowDetails)
+        binding.crew.layoutManager = GridLayoutManager(this@ShowDetails, 2)
+        binding.crew.addItemDecoration(GridItemDecoration(20, 2))
+
         binding.seasons.layoutManager = LinearLayoutManager(this@ShowDetails)
 
         val year = Utilities().stringDateToYear(intent.getStringExtra("premiered") ?: "")
