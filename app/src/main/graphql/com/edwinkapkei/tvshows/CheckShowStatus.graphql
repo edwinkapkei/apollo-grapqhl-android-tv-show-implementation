@@ -1,0 +1,8 @@
+query CheckShowStatus($userId: String!,$showId:String!){
+  checkShowStatus(userId:$userId,showId:$showId){
+    success
+    message
+    favorite
+    scheduled
+  }
+}

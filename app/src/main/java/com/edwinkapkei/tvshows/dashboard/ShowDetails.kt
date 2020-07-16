@@ -79,11 +79,31 @@ class ShowDetails : AppCompatActivity() {
             }
 
         }
+
+        checkShowStatus()
+    }
+
+    private fun checkShowStatus() {
+        lifecycleScope.launchWhenCreated {
+            val query = CheckShowStatusQuery(userId = SessionManager.getUserId(this@ShowDetails), showId = showId.toString());
+            val response = try {
+                apolloClient.query(query).toDeferred().await()
+            } catch (e: ApolloException) {
+                null
+            }
+
+            if (response != null)
+                if (response.data?.checkShowStatus?.success!!) {
+                    addToFavorite = response.data?.checkShowStatus?.favorite!!
+                    addToSchedule = response.data?.checkShowStatus?.scheduled!!
+                    invalidateOptionsMenu()
+                }
+        }
     }
 
     private fun addToFavorites() {
         lifecycleScope.launchWhenCreated {
-            val mutation = AddFavoriteMutation(userId = SessionManager.getUserId(this@ShowDetails), showId = showId.toString(), addToFavorites = true);
+            val mutation = AddFavoriteMutation(userId = SessionManager.getUserId(this@ShowDetails), showId = showId.toString(), addToFavorites = !addToFavorite);
             val response = try {
                 apolloClient.mutate(mutation).toDeferred().await()
             } catch (e: ApolloException) {
@@ -106,7 +126,7 @@ class ShowDetails : AppCompatActivity() {
 
     private fun addToSchedule() {
         lifecycleScope.launchWhenCreated {
-            val mutation = AddScheduleMutation(userId = SessionManager.getUserId(this@ShowDetails), showId = showId.toString(), addToSchedule = true);
+            val mutation = AddScheduleMutation(userId = SessionManager.getUserId(this@ShowDetails), showId = showId.toString(), addToSchedule = !addToSchedule);
             val response = try {
                 apolloClient.mutate(mutation).toDeferred().await()
             } catch (e: ApolloException) {
