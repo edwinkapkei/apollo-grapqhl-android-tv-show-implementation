@@ -10,15 +10,15 @@
     android:gravity="center"
     android:orientation="vertical"
     android:padding="@dimen/fab_margin"
-    tools:context=".LoginActivity">
+    tools:context=".SignupActivity">
 
     <ImageView
         android:layout_width="100dp"
         android:layout_height="100dp"
         android:layout_marginBottom="@dimen/spacing_normal"
-        android:tint="@color/colorPrimary"
         android:contentDescription="@string/generic_icon"
-        android:src="@drawable/television_classic" />
+        android:src="@drawable/television_classic"
+        android:tint="@color/colorPrimary" />
 
     <TextView
         android:layout_width="wrap_content"
@@ -34,10 +34,33 @@
         android:layout_height="wrap_content"
         android:layout_marginBottom="@dimen/spacing_small"
         android:fontFamily="@font/regular"
-        android:text="@string/let_s_get_you_logged_in" />
+        android:text="@string/sign_up" />
 
     <com.google.android.material.textfield.TextInputLayout
-        android:id="@+id/username_input_layout"
+        android:id="@+id/name_input_layout"
+        style="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox.Dense"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginBottom="@dimen/spacing_normal"
+        android:hint="Name"
+        app:boxCornerRadiusBottomEnd="@dimen/spacing_normal"
+        app:boxCornerRadiusBottomStart="@dimen/spacing_normal"
+        app:boxCornerRadiusTopEnd="@dimen/spacing_normal"
+        app:boxCornerRadiusTopStart="@dimen/spacing_normal"
+        app:errorIconDrawable="@null"
+        app:startIconDrawable="@drawable/ic_baseline_person_24">
+
+        <com.google.android.material.textfield.TextInputEditText
+            android:id="@+id/name"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:fontFamily="@font/regular"
+            android:inputType="textCapWords" />
+
+    </com.google.android.material.textfield.TextInputLayout>
+
+    <com.google.android.material.textfield.TextInputLayout
+        android:id="@+id/email_input_layout"
         style="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox.Dense"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
@@ -48,10 +71,10 @@
         app:boxCornerRadiusTopEnd="@dimen/spacing_normal"
         app:boxCornerRadiusTopStart="@dimen/spacing_normal"
         app:errorIconDrawable="@null"
-        app:startIconDrawable="@drawable/ic_baseline_person_24">
+        app:startIconDrawable="@drawable/ic_baseline_email_24">
 
         <com.google.android.material.textfield.TextInputEditText
-            android:id="@+id/username"
+            android:id="@+id/email"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:autofillHints="@string/username"
@@ -85,25 +108,28 @@
 
     </com.google.android.material.textfield.TextInputLayout>
 
-    <Button
-        android:id="@+id/login"
-        android:layout_width="200dp"
+    <FrameLayout
+        android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:layout_gravity="center"
-        android:layout_marginBottom="@dimen/spacing_large"
-        android:fontFamily="@font/bold"
-        android:text="@string/login"
-        android:textAllCaps="true" />
+        android:layout_marginBottom="@dimen/spacing_large">
 
+        <Button
+            android:id="@+id/signup"
+            android:layout_width="200dp"
+            android:layout_height="wrap_content"
+            android:layout_gravity="center"
 
-    <Button
-        android:id="@+id/signup"
-        android:layout_width="200dp"
-        style="@style/Widget.MaterialComponents.Button.TextButton"
-        android:layout_height="wrap_content"
-        android:layout_gravity="center"
-        android:layout_marginBottom="@dimen/spacing_large"
-        android:fontFamily="@font/bold"
-        android:text="Sign Up"
-        android:textAllCaps="true" />
+            android:fontFamily="@font/bold"
+            android:text="Sign Up"
+            android:textAllCaps="true" />
+
+        <androidx.core.widget.ContentLoadingProgressBar
+            android:id="@+id/progressbar"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_gravity="center_horizontal"
+            android:theme="?android:attr/progressBarStyle"
+            android:visibility="invisible" />
+    </FrameLayout>
+
 </LinearLayout>

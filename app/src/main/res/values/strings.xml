@@ -13,4 +13,6 @@
     <string name="search">Search</string>
     <string name="favorite">Favorite</string>
     <string name="comment">Comment</string>
+    <string name="sign_up">Sign Up</string>
+    <string name="trouble">We had trouble completing your request</string>
 </resources>
